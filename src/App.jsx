@@ -6,13 +6,14 @@ import Footer from './Components/Footer';
 import logoimg from './img/Logo Nav Bar.png';
 import Recipes from './Components/Recipes'; 
 import CookingTips from './Components/CookingTips';
+import RecipeDetails from './Components/RecipeDetails'; 
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
-
+  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
  
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +73,6 @@ export default function App() {
               </form>
             ) : null}
 
-            
             {!isSearchOpen && (
               <button 
                 className="navbar-brand btn btn-link p-0 border-0 d-flex align-items-center" 
@@ -82,24 +82,21 @@ export default function App() {
               </button>
             )}
             
-           
-          
-{!isSearchOpen && (
-  <button 
-    className="btn border-0 d-lg-none ms-auto d-flex align-items-center justify-content-center rounded-circle" 
-    style={{ 
-      backgroundColor: '#EAE5D9',
-      width: '40px', 
-      height: '40px',
-      padding: 0 
-    }}
-    onClick={() => setIsMenuOpen(true)}
-  >
-    <i className="bi bi-list fs-4" style={{ color: '#2B2B2B', lineHeight: 1 }}></i>
-  </button>
-)}
+            {!isSearchOpen && (
+              <button 
+                className="btn border-0 d-lg-none ms-auto d-flex align-items-center justify-content-center rounded-circle" 
+                style={{ 
+                  backgroundColor: '#EAE5D9',
+                  width: '40px', 
+                  height: '40px',
+                  padding: 0 
+                }}
+                onClick={() => setIsMenuOpen(true)}
+              >
+                <i className="bi bi-list fs-4" style={{ color: '#2B2B2B', lineHeight: 1 }}></i>
+              </button>
+            )}
 
-           
             <div className="collapse navbar-collapse d-none d-lg-flex" id="cooksNavbar">
               <ul className="navbar-nav mx-auto gap-4">
                 <li className="nav-item">
@@ -148,7 +145,6 @@ export default function App() {
                 </li>
               </ul>
               
-             
               <div className="d-flex align-items-center ms-lg-3">
                 <button 
                   className="btn d-flex align-items-center justify-content-center p-0 rounded-circle border-0"
@@ -166,12 +162,11 @@ export default function App() {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </nav>
 
-     
+      
       {isMenuOpen && (
         <div 
           className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column p-4"
@@ -208,7 +203,6 @@ export default function App() {
           </div>
 
           <div className="mt-5 d-flex align-items-center gap-3">
-            
             <button 
               className="btn rounded-circle d-flex align-items-center justify-content-center border-0"
               style={{ width: '45px', height: '45px', backgroundColor: 'rgba(255,255,255,0.08)', color: '#FFF' }}
@@ -216,7 +210,6 @@ export default function App() {
             >
               <i className="bi bi-search fs-6"></i>
             </button>
-
             <button 
               className="btn fw-bold text-uppercase flex-grow-1 py-2 rounded-pill"
               style={{ backgroundColor: '#E07A5F', color: '#FFF', fontSize: '0.85rem', letterSpacing: '1px' }}
@@ -234,13 +227,24 @@ export default function App() {
         </div>
       )}
 
-    
+     
       <main className="flex-grow-1">
-        {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
-        {currentPage === 'about' && <About />}
+        {currentPage === 'home' && (
+          <Home setCurrentPage={setCurrentPage} setSelectedRecipeId={setSelectedRecipeId} />
+        )}
+        {currentPage === 'about' && (
+          <About setCurrentPage={setCurrentPage} setSelectedRecipeId={setSelectedRecipeId} />
+        )}
         {currentPage === 'login' && <Login />}
-        {currentPage === 'recipes' && <Recipes globalSearchQuery={globalSearchQuery} />}
+        {currentPage === 'recipes' && (
+          <Recipes globalSearchQuery={globalSearchQuery} setCurrentPage={setCurrentPage} setSelectedRecipeId={setSelectedRecipeId} />
+        )}
         {currentPage === 'tips' && <CookingTips />}
+        
+        
+        {currentPage === 'recipe-details' && (
+          <RecipeDetails recipeId={selectedRecipeId} setCurrentPage={setCurrentPage} />
+        )}
       </main>
 
       <Footer setCurrentPage={setCurrentPage} />

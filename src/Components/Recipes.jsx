@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Recipes({ globalSearchQuery }) {
+
+export default function Recipes({ globalSearchQuery, setCurrentPage, setSelectedRecipeId }) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('ALL');
 
   const categories = ['ALL', 'BREAKFAST', 'LUNCH', 'DINNER', 'DESSERT'];
 
-  
   useEffect(() => {
     setLoading(true);
-    
     
     const url = globalSearchQuery
       ? `https://dummyjson.com/recipes/search?q=${globalSearchQuery}`
@@ -28,7 +27,6 @@ export default function Recipes({ globalSearchQuery }) {
       });
   }, [globalSearchQuery]);
 
-  
   const filteredRecipes = activeCategory === 'ALL'
     ? recipes
     : recipes.filter(r => r.mealType?.some(type => type.toUpperCase() === activeCategory));
@@ -37,7 +35,6 @@ export default function Recipes({ globalSearchQuery }) {
     <div style={{ backgroundColor: '#F5F2EB', minHeight: '100vh', fontFamily: 'serif', color: '#2B2B2B' }} className="py-5">
       <div className="container">
         
-       
         <div className="text-center mb-5">
           <h1 className="display-5 fw-bold text-uppercase mb-2" style={{ letterSpacing: '1px' }}>
             {globalSearchQuery ? `Results for: ${globalSearchQuery}` : 'Our Recipes Catalog'}
@@ -49,7 +46,6 @@ export default function Recipes({ globalSearchQuery }) {
           </p>
         </div>
 
-        
         <div className="d-flex flex-wrap justify-content-center gap-2 mb-5">
           {categories.map(cat => (
             <button
@@ -62,7 +58,6 @@ export default function Recipes({ globalSearchQuery }) {
           ))}
         </div>
 
-      
         {loading ? (
           <div className="text-center py-5">
             <div className="spinner-border text-dark" role="status"></div>
@@ -94,7 +89,17 @@ export default function Recipes({ globalSearchQuery }) {
                       <span className="small text-uppercase text-secondary fw-bold" style={{ fontFamily: 'sans-serif', fontSize: '0.75rem' }}>
                         {recipe.difficulty}
                       </span>
-                      <button className="btn btn-outline-dark btn-sm rounded-pill px-3 text-uppercase fw-semibold" style={{ fontSize: '0.75rem' }}>
+                      
+                      
+                      <button 
+                        className="btn btn-outline-dark btn-sm rounded-pill px-3 text-uppercase fw-semibold" 
+                        style={{ fontSize: '0.75rem' }}
+                        onClick={() => {
+                          setSelectedRecipeId(recipe.id);   
+                          setCurrentPage('recipe-details'); 
+                          window.scrollTo(0, 0);            
+                        }}
+                      >
                         View Recipe
                       </button>
                     </div>
@@ -103,7 +108,6 @@ export default function Recipes({ globalSearchQuery }) {
               </div>
             ))}
 
-           
             {filteredRecipes.length === 0 && (
               <div className="col-12 text-center py-5 text-muted" style={{ fontFamily: 'sans-serif' }}>
                 <i className="bi bi-exclamation-circle display-4 d-block mb-3"></i>
@@ -114,6 +118,34 @@ export default function Recipes({ globalSearchQuery }) {
         )}
 
       </div>
+      
+      <section className="container pb-5 ">
+        <div className="text-center text-white p-5 position-relative overflow-hidden" 
+             style={{ 
+               backgroundColor: '#FF6448', 
+               borderRadius: '35px',
+               backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent)',
+               backgroundSize: '40px 40px'
+             }}>
+          <div className="py-4 position-relative" style={{ zIndex: '2' }}>
+            <span className="text-uppercase fw-bold d-block mb-2" style={{ fontSize: '12px', letterSpacing: '1px', opacity: '0.9' }}>SIGN UP</span>
+            <h2 className="display-4 fw-black mb-3" style={{ fontWeight: '900', letterSpacing: '-1px' }}>
+              JOIN THE FUN<br />CREATE ACCOUNT NOW!
+            </h2>
+            <p className="mx-auto mb-4 small" style={{ maxWidth: '500px', opacity: '0.85', lineHeight: '1.6' }}>
+              Create an account to save your favorite recipes, share your own dishes, and enjoy a personalized cooking experience.
+            </p>
+             <button 
+  className="btn bg-dark text-white px-4 py-2 fw-bold" 
+  style={{ borderRadius: '20px', fontSize: '12px', letterSpacing: '0.5px' }}
+  onClick={() => { setCurrentPage('login'); window.scrollTo(0, 0); }} 
+>
+  SIGN UP
+</button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
