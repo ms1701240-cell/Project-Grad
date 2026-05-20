@@ -5,15 +5,15 @@ export default function Home({ setCurrentPage }) {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('ALL');
 
-  // التصنيفات المتاحة في الديزاين [Screenshot 2026-05-20 001440.jpg]
+  
   const categories = ['ALL', 'BREAKFAST', 'LUNCH', 'DINNER', 'DESSERT', 'SNACK', 'SIDE DISH'];
 
   useEffect(() => {
-    // سحب البيانات من الـ API الحقيقي مع رفع الليميت لعرض شبكة متنوعة
+    
     fetch('https://dummyjson.com/recipes?limit=9')
       .then(res => res.json())
       .then(data => {
-        // ترتيب تنازلي حسب الأعلى تقييماً
+       
         const sorted = data.recipes.sort((a, b) => b.rating - a.rating);
         setRecipes(sorted);
         setLoading(false);
@@ -24,7 +24,7 @@ export default function Home({ setCurrentPage }) {
       });
   }, []);
 
-  // تصفية الوصفات بناءً على الـ Category المختار [Screenshot 2026-05-20 001440.jpg]
+ 
   const filteredRecipes = activeCategory === 'ALL' 
     ? recipes 
     : recipes.filter(r => r.mealType?.some(type => type.toUpperCase() === activeCategory));
@@ -32,7 +32,7 @@ export default function Home({ setCurrentPage }) {
   return (
     <div style={{ backgroundColor: '#F5F2EB', color: '#2B2B2B', fontFamily: 'serif' }}>
       
-      {/* ─── 1. HERO SECTION (Unleash Culinary Excellence) [image_9215e6.jpg] ─── */}
+     
       <section className="container py-4">
         <div 
           className="position-relative text-white rounded-5 overflow-hidden d-flex align-items-center justify-content-center text-center p-5 shadow-sm"
@@ -62,7 +62,7 @@ export default function Home({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* ─── 2. OUR DIVERSE PALETTE SECTION [image_9215e6.jpg] ─── */}
+     
       <section className="container py-5">
         <div className="row g-4 align-items-center bg-white rounded-5 p-4 mx-1 shadow-sm" style={{ backgroundColor: '#D6EAF8' }}>
           <div className="col-lg-5 p-4">
@@ -86,7 +86,7 @@ export default function Home({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* ─── 3. FEATURED RECIPES SECTION [Screenshot 2026-05-20 001440.jpg] ─── */}
+      
       <section className="container py-5">
         <div className="d-flex justify-content-between align-items-center mb-4 px-2">
           <h2 className="fw-bold text-uppercase m-0 fs-2" style={{ letterSpacing: '1px' }}>Featured Recipes</h2>
@@ -123,7 +123,7 @@ export default function Home({ setCurrentPage }) {
         )}
       </section>
 
-      {/* ─── 4. EMBARK ON A JOURNEY GRID SECTION [Screenshot 2026-05-20 001440.jpg] ─── */}
+      
       <section id="journey" className="container py-5">
         <div className="text-center mb-4">
           <span className="badge bg-danger rounded-pill mb-2 text-uppercase px-3 py-2" style={{ fontSize: '0.75rem', backgroundColor: '#E07A5F' }}>Recipes</span>
@@ -133,7 +133,7 @@ export default function Home({ setCurrentPage }) {
           </p>
         </div>
 
-        {/* أزرار الـ Categories الفلترة [Screenshot 2026-05-20 001440.jpg] */}
+        
         <div className="d-flex flex-wrap justify-content-center gap-2 mb-5">
           {categories.map(cat => (
             <button
@@ -147,7 +147,7 @@ export default function Home({ setCurrentPage }) {
           ))}
         </div>
 
-        {/* شبكة عرض داتا الـ API المفلترة [Screenshot 2026-05-20 001455.jpg] */}
+        
         {loading ? (
           <div className="text-center py-5"><div className="spinner-border text-dark"></div></div>
         ) : (
@@ -178,7 +178,7 @@ export default function Home({ setCurrentPage }) {
         )}
       </section>
 
-      {/* ─── 5. OUR CULINARY CHRONICLE GRID (التقسيمة الجريد المعقدة للصور) [Screenshot 2026-05-20 001505.jpg] ─── */}
+      
       <section className="container py-5 mb-4">
         <div className="row g-3 bg-white p-4 rounded-5 mx-1 shadow-sm">
           <div className="col-md-5 d-flex flex-column justify-content-center p-3">
@@ -207,7 +207,7 @@ export default function Home({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* ─── 6. JOIN THE FUN BANNER [image_921929.png, Screenshot 2026-05-20 001505.jpg] ─── */}
+     
       <section className="container py-4 mb-5">
         <div className="text-center text-white rounded-5 p-5 shadow-sm" style={{ backgroundColor: '#F26444' }}>
           <span className="text-uppercase small fw-bold tracking-wide opacity-75">Sign Up</span>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// استدعاء المكونات المنفصلة اللي التيم شغال عليها
 import Home from './Components/Home';
 import About from './Components/About';
 import Login from './Components/Login';
@@ -14,7 +13,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
 
-  // دالة لتنفيذ البحث عند الضغط على Enter أو زر البحث
+ 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (globalSearchQuery.trim() !== '') {
@@ -25,7 +24,7 @@ export default function App() {
 
   const navigateTo = (page) => {
     setCurrentPage(page);
-    setIsMenuOpen(false); // قفل المنيو علطول بعد الانتقال لأي صفحة
+    setIsMenuOpen(false); 
   };
 
   return (
@@ -84,7 +83,7 @@ export default function App() {
             )}
             
            
-           {/* زرار الـ Burger للموبايل (بيختفي لو السيرش مفتوح) */}
+          
 {!isSearchOpen && (
   <button 
     className="btn border-0 d-lg-none ms-auto d-flex align-items-center justify-content-center rounded-circle" 
@@ -92,7 +91,7 @@ export default function App() {
       backgroundColor: '#EAE5D9',
       width: '40px', 
       height: '40px',
-      padding: 0 /* تصفير البادينج العشوائي */
+      padding: 0 
     }}
     onClick={() => setIsMenuOpen(true)}
   >
@@ -100,7 +99,7 @@ export default function App() {
   </button>
 )}
 
-            {/* اللينكات (تظهر فقط في الديسكتوب d-none d-lg-flex) */}
+           
             <div className="collapse navbar-collapse d-none d-lg-flex" id="cooksNavbar">
               <ul className="navbar-nav mx-auto gap-4">
                 <li className="nav-item">
@@ -149,7 +148,7 @@ export default function App() {
                 </li>
               </ul>
               
-              {/* زاوية الأزرار الجانبية ديسكتوب */}
+             
               <div className="d-flex align-items-center ms-lg-3">
                 <button 
                   className="btn d-flex align-items-center justify-content-center p-0 rounded-circle border-0"
@@ -172,7 +171,7 @@ export default function App() {
         </div>
       </nav>
 
-      {/* ─── 📱 منيو الموبايل الغامقة الكاملة (Overlay) ─── */}
+     
       {isMenuOpen && (
         <div 
           className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column p-4"
@@ -209,7 +208,7 @@ export default function App() {
           </div>
 
           <div className="mt-5 d-flex align-items-center gap-3">
-            {/* ⚠️ لما تضغط هنا، المنيو هتقفل والـ Input هيفتح فوق في الـ Navbar علطول */}
+            
             <button 
               className="btn rounded-circle d-flex align-items-center justify-content-center border-0"
               style={{ width: '45px', height: '45px', backgroundColor: 'rgba(255,255,255,0.08)', color: '#FFF' }}
@@ -235,7 +234,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ─── محتوى الصفحات الديناميكي ─── */}
+    
       <main className="flex-grow-1">
         {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
         {currentPage === 'about' && <About />}

@@ -7,11 +7,11 @@ export default function Recipes({ globalSearchQuery }) {
 
   const categories = ['ALL', 'BREAKFAST', 'LUNCH', 'DINNER', 'DESSERT'];
 
-  // تأثير جلب البيانات عند تغيير اسم الأكلة القادم من الـ Navbar
+  
   useEffect(() => {
     setLoading(true);
     
-    // لو كاتب اسم أكلة، بيبحث عنها. لو الخانة فاضية، بيجيب أول 30 وصفة
+    
     const url = globalSearchQuery
       ? `https://dummyjson.com/recipes/search?q=${globalSearchQuery}`
       : `https://dummyjson.com/recipes?limit=30`;
@@ -26,9 +26,9 @@ export default function Recipes({ globalSearchQuery }) {
         console.error("Error fetching recipes:", err);
         setLoading(false);
       });
-  }, [globalSearchQuery]); // بيشتغل تلقائياً أول ما الكلمة تتغير
+  }, [globalSearchQuery]);
 
-  // فلترة إضافية سريعة بالكابسولات (فوق داتا البحث)
+  
   const filteredRecipes = activeCategory === 'ALL'
     ? recipes
     : recipes.filter(r => r.mealType?.some(type => type.toUpperCase() === activeCategory));
@@ -37,7 +37,7 @@ export default function Recipes({ globalSearchQuery }) {
     <div style={{ backgroundColor: '#F5F2EB', minHeight: '100vh', fontFamily: 'serif', color: '#2B2B2B' }} className="py-5">
       <div className="container">
         
-        {/* عنوان الصفحة الديناميكي */}
+       
         <div className="text-center mb-5">
           <h1 className="display-5 fw-bold text-uppercase mb-2" style={{ letterSpacing: '1px' }}>
             {globalSearchQuery ? `Results for: ${globalSearchQuery}` : 'Our Recipes Catalog'}
@@ -49,7 +49,7 @@ export default function Recipes({ globalSearchQuery }) {
           </p>
         </div>
 
-        {/* كابسولات الفلترة (الوجبات) */}
+        
         <div className="d-flex flex-wrap justify-content-center gap-2 mb-5">
           {categories.map(cat => (
             <button
@@ -62,7 +62,7 @@ export default function Recipes({ globalSearchQuery }) {
           ))}
         </div>
 
-        {/* عرض لودنج أو شبكة الكروت */}
+      
         {loading ? (
           <div className="text-center py-5">
             <div className="spinner-border text-dark" role="status"></div>
@@ -103,7 +103,7 @@ export default function Recipes({ globalSearchQuery }) {
               </div>
             ))}
 
-            {/* لو مفيش نتائج */}
+           
             {filteredRecipes.length === 0 && (
               <div className="col-12 text-center py-5 text-muted" style={{ fontFamily: 'sans-serif' }}>
                 <i className="bi bi-exclamation-circle display-4 d-block mb-3"></i>
